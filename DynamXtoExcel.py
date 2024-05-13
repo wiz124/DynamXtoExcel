@@ -1,4 +1,4 @@
-/*
+"""
 !!!SCRIPT IS WIP!!!
 autohotkey script to automate dynamx to excel conversion, current dynamx application does not
 support the exporting of data to excel for bimodal analysis
@@ -28,29 +28,69 @@ ctrl M: starts the script
 
 For window spy for AHKv2:
 -  window size=screen size
-*/
+"""
+
+
+"""
+Usage:
+1) Drag main DynamX to the top left
+2) Drag spectral plots to the top right
+4) Drag excel window to the bottom left. Select your starting cell (e.g. A2)
+5) Select the desired peptide, scroll to the top of the spectra (or whatever the desired starting point), and then press escape (or whatever its been bound to)
+6) ???
+7) profit
+"""
+
+
+import pyautogui as pg
+from pynput.keyboard import Key, Listener
+
+pg.PAUSE = 0.075
+
+#BOTTOM_PIXEL = (133, 133, 133) # otherwise, should be (240, 240, 240)
+BOTTOM_PIXEL = (240, 240, 240)
+DATA_SEQUENCE = ['down', 'down', 'down', 'down', 'enter', 'down', 'down', 'down', 'enter']
+ARROW_MOVEMENT = ['right', 'right']
+TOP = (1310, 200)
+MIDDLE = (1315, 330)
+BOTTOM = (1310, 450)
+
+def get_data(click_pos):
+    pg.click(click_pos) # get spectra
+    pg.click(940, 320, button='right') # open context menu
+    pg.press(DATA_SEQUENCE) # copies data
+    pg.click(500, 600) # activates excel tab
+    pg.hotkey('ctrl', 'shift', 'v') # paste data
+    pg.press(ARROW_MOVEMENT) # move right two columns
+    #print(pg.pixel(1910, 485))
+
+
+def on_press(key):
+    if key == Key.esc: # get data
+        counter = 3
+        while (pg.pixel(1910, 485) == BOTTOM_PIXEL): # check the scroll wheel pixel
+            get_data(TOP)
+            pg.doubleClick(1910, 500) # next spectra
+            counter += 1
+        get_data(TOP)
+        get_data(MIDDLE)
+        get_data(BOTTOM)
+        print(f"Copied {counter} spectra!")
+
+    #if key == Key.left: # align window
+    #    pg.moveTo(1471, 572) # position at bottom of screen
+    #    pg.dragTo(1471, 421, button='left') # drag up
+
+listener = Listener(on_press=on_press)
+
+listener.start()
 
 
 
-#HotIf WinExist("ahk_class LVDChild")
-^m::
-{
+"""
+Things to look out for:
 
-WinActivate "ahk_class LVDChild"
-WinMaximize
+1) if the context menu changed (e.g. one of the spikes is selected), then the data sequence must change
+2) if the scroll bar size changes (more/less experiments), then measuring the scroll bar pixel may no longer be accurate (currently set to 1910, 335)
 
-
-WinGetPos ,, &w, &h, "A"
-
-;Mousex := 0.06*w
-;Mousey := 0.01*h
-
-MouseMove 100,9,0
-
-;MsgBox "mouse coord=" Mousex " , " Mousey
-;MsgBox "Success"
-}
-
-
-;turn off script option 
-~Escape::ExitApp
+"""
