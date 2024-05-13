@@ -24,6 +24,7 @@ Goal:
 
 
 """
+required resolution:1920x1200
 Usage:
 1) Drag main DynamX to the top left
 2) Drag spectral plots to the top right
