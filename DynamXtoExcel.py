@@ -1,6 +1,6 @@
 """
 !!!SCRIPT IS WIP!!!
-autohotkey script to automate dynamx to excel conversion, current dynamx application does not
+python script to automate dynamx to excel conversion, current dynamx application does not
 support the exporting of data to excel for bimodal analysis
 
 
@@ -20,14 +20,6 @@ Goal:
 			-same script or create a different script
 				ie. powershell 
 	- gradually automate user clicking process
-
-
-
-
-ctrl M: starts the script 
-
-For window spy for AHKv2:
--  window size=screen size
 """
 
 
