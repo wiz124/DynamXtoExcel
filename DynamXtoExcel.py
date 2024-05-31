@@ -56,7 +56,7 @@ def get_data(click_pos):
     pg.click(click_pos) # get spectra
     pg.click(940, 320, button='right') # open context menu
     pg.press(DATA_SEQUENCE) # copies data
-    pg.click(500, 600) # activates excel tab
+    pg.click(574, 600) # activates excel tab
     pg.hotkey('ctrl', 'shift', 'v') # paste data
     pg.press(ARROW_MOVEMENT) # move right two columns
     #print(pg.pixel(1910, 485))
