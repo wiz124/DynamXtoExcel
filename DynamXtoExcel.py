@@ -24,7 +24,11 @@ Goal:
 
 
 """
+change settings:
 required resolution:1920x1200
+scale:125%
+orientation:Landscape 
+
 Usage:
 1) Drag main DynamX to the top left
 2) Drag spectral plots to the top right
