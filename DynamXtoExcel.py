@@ -12,6 +12,15 @@ Usage:
 7) profit
 """
 
+
+#import sys
+#import os
+#import pathlib
+#import importlib
+#autoguipath=os.path.join(pathlib.Path(r'C:\Users\hli16\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyautogui')
+#sys.path.append(autoguipath)
+
+
 import pyautogui as pg
 from pynput.keyboard import Key, Listener
 #from pynput import keyboard
@@ -64,11 +73,11 @@ def on_press(key):
 #filename=input("input file name for  new excel sheet: ")
 
 
-#listener = Listener(on_press=on_press)
+listener = Listener(on_press=on_press)
 
-#listener.start()
+listener.start()
 
-
+'''
 loop =True
 permission=''
 while loop:
@@ -78,7 +87,7 @@ while loop:
     else:
         loop= False
 
-
+'''
 
 
  
